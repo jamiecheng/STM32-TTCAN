@@ -78,15 +78,6 @@ __attribute__((unused)) void TIM2_IRQHandler()
     auto comm = cni::CommNetworkInterface::get_instance();
 
     comm->tim_isr();
-//    if ((TIM2->SR & TIM_SR_UIF) != 0)
-//    {
-//        TIM2->SR &= ~TIM_SR_UIF;
-//    }
-//
-//    if ((TIM2->SR & TIM_SR_CC1IF) != 0)
-//    {
-//        TIM2->SR &= ~TIM_SR_CC1IF;
-//    }
 }
 
 }
