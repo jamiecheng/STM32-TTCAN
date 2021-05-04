@@ -127,7 +127,8 @@ void CommNetworkInterface::can_isr()
             TIM2->DIER |= TIM_DIER_CC1IE;
         }
 
-        m_rx_cb(static_cast<msg_id_t>(identifier), CAN->sFIFOMailBox[0].RDHR, CAN->sFIFOMailBox[0].RDLR);
+        if(m_rx_cb)
+            m_rx_cb(static_cast<msg_id_t>(identifier), CAN->sFIFOMailBox[0].RDHR, CAN->sFIFOMailBox[0].RDLR);
 
         CAN->RF0R |= CAN_RF0R_RFOM0;
     }
@@ -260,6 +261,10 @@ void CommNetworkInterface::_config_can()
     CAN->sFilterRegister[1].FR1 = (MSG_ID_ENGINE_TEMP << 5) | (0xFFE0U << 16);
     CAN->FA1R |= CAN_FA1R_FACT2;
     CAN->sFilterRegister[2].FR1 = (MSG_ID_RPM << 5) | (0xFFE0U << 16);
+    CAN->FA1R |= CAN_FA1R_FACT3;
+    CAN->sFilterRegister[3].FR1 = (MSG_ID_BRAKE << 5) | (0xFFE0U << 16);
+    CAN->FA1R |= CAN_FA1R_FACT4;
+    CAN->sFilterRegister[4].FR1 = (MSG_ID_GAS << 5) | (0xFFE0U << 16);
 
     // 11. Leave filter init
     CAN->FMR &= ~CAN_FMR_FINIT;
@@ -280,7 +285,7 @@ void CommNetworkInterface::_config_timer()
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
 
     // 2. Set PSC
-    TIM2->PSC = 48000 - 1;
+    TIM2->PSC = 48 - 1;
 
     // 3. Set ARR
     TIM2->ARR = m_matrix->get_basic_cycle_duration() - 1;

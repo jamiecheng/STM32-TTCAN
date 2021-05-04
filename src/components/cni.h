@@ -15,6 +15,8 @@ typedef enum
     MSG_ID_REF = 0x0110U,
     MSG_ID_ENGINE_TEMP = 0x0210U,
     MSG_ID_RPM = 0x0310U,
+    MSG_ID_GAS = 0x0410U,
+    MSG_ID_BRAKE = 0x0510U
 } msg_id_t;
 
 typedef struct
@@ -24,6 +26,11 @@ typedef struct
     uint8_t column;
     uint64_t *data;
 } schedule_tx_t;
+
+struct RxCallback
+{
+
+};
 
 class CommNetworkInterface
 {

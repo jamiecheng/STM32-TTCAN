@@ -45,19 +45,23 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(src/app
+include_directories(src/components
+        src/nodes
         src/utils
         drivers/CMSIS/Device/ST/STM32F0xx/Include
         drivers/CMSIS/Include)
 
-add_definitions(-DUSE_HAL_DRIVER -DSTM32F072 -DDEBUG)
+add_definitions(-DUSE_HAL_DRIVER -DSTM32F072 -DSTM32F072xB -DDEBUG -DNODE_B)
 
 set(SOURCES
-        src/app/main.cpp
-        src/app/local_tick.cpp
+        src/main.cpp
+        src/nodes/node_base.cpp
+        src/nodes/node_a.cpp
+        src/nodes/node_b.cpp
+        src/components/local_tick.cpp
         src/system/system_handlers.cpp
-        src/app/cni.cpp
-        src/app/schedule_matrix.cpp
+        src/components/cni.cpp
+        src/components/schedule_matrix.cpp
         src/system/system_stm32f0xx.c
         src/system/startup_stm32f072rbtx.s)
 
