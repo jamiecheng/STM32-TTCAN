@@ -57,9 +57,8 @@ void NodeA::_cni_message_received(cni::msg_id_t id, uint32_t hr, uint32_t lr)
 {
     switch (id)
     {
-        case cni::MSG_ID_ENGINE_TEMP:break;
-        case cni::MSG_ID_REF:break;
-        case cni::MSG_ID_RPM:break;
+        case cni::MSG_ID_GAS:break;
+        case cni::MSG_ID_BRAKE:break;
         default:break;
     }
 }
